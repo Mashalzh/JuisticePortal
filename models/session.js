@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 "use strict";
 export default (sequelize, DataTypes) => {
   const session = sequelize.define(

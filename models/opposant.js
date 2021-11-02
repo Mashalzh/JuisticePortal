@@ -1,8 +1,20 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-"use strict";
+import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  const opposant = sequelize.define(
-    "opposant",
+  class opposant extends Model {
+    /**
+     * Helper Method for defining associations.
+     * The `models/index` file will call this method automatically.
+     */
+
+    static associate(models) {
+      //Opposant belongs to a client
+      opposant.belongsto(models.client, {
+        foreignKey: "id",
+        as: "client_id",
+      });
+    }
+  }
+  opposant.init(
     {
       fname: DataTypes.STRING,
       lname: DataTypes.STRING,
@@ -10,11 +22,12 @@ export default (sequelize, DataTypes) => {
       CNIC: DataTypes.INTEGER,
       phone: DataTypes.INTEGER,
     },
-    {}
+    {
+      sequelize,
+      tableName: "opposant",
+      modelName: "opposant",
+    }
   );
-  opposant.associate = function (models) {
-    //Opposant belongs to a client
-    opposant.belongsto(models.client);
-  };
+
   return opposant;
 };

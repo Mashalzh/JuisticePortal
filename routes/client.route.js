@@ -7,7 +7,6 @@ import {
   store,
   update,
   dlt,
-  changepw,
 } from "../controllers/client.controllers.js";
 
 //Routes
@@ -18,7 +17,6 @@ router.get("/:id/show", show);
 router.post("/create", store);
 router.put("/:id/update", update);
 router.delete("/:id/delete", dlt);
-router.put("/:id/changepassword", changepw);
 
 export default router;
 

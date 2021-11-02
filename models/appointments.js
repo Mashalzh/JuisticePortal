@@ -1,8 +1,20 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-"use strict";
+import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  const appointments = sequelize.define(
-    "appointments",
+  class appointments extends Model {
+    /**
+     * Helper Method for defining associations.
+     * The `models/index` file will call this method automatically.
+     */
+
+    static associate(models) {
+      // appointments has many cases
+      appointments.hasmany(models.case1, {
+        foreignKey: "id",
+        as: "casse_id",
+      });
+    }
+  }
+  appointments.init(
     {
       subject: DataTypes.STRING,
       startdate: DataTypes.DATE,
@@ -10,11 +22,12 @@ export default (sequelize, DataTypes) => {
       starttime: DataTypes.TIME,
       endtime: DataTypes.TIME,
     },
-    {}
+    {
+      sequelize,
+      tableName: "appointments",
+      modelName: "appointments",
+    }
   );
-  appointments.associate = function (models) {
-    // appointments has many cases
-    appointments.hasmany(models.case1);
-  };
+
   return appointments;
 };

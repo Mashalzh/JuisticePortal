@@ -1,8 +1,25 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-"use strict";
+import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  const client = sequelize.define(
-    "client",
+  class client extends Model {
+    /**
+     * Helper Method for defining associations.
+     * The `models/index` file will call this method automatically.
+     */
+
+    static associate(models) {
+      // Client has many opposant
+      client.hasMany(models.opposant, {
+        foreignKey: "id",
+        as: "client_id",
+      });
+      //client has many cases
+      client.hasMany(models.case1, {
+        foreignKey: "id",
+        as: "client_id",
+      });
+    }
+  }
+  client.init(
     {
       fname: DataTypes.STRING,
       lname: DataTypes.STRING,
@@ -10,13 +27,10 @@ export default (sequelize, DataTypes) => {
       phone: DataTypes.INTEGER,
       CNIC: DataTypes.INTEGER,
     },
-    {}
+    {
+      sequelize,
+      tableName: "client",
+      modelName: "client",
+    }
   );
-  client.associate = function (models) {
-    // Client has many opposant
-    client.hasMany(models.opposant);
-    //client has many cases
-    client.hasMany(models.case1);
-  };
-  return client;
 };

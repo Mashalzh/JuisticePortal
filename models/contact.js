@@ -1,8 +1,20 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-"use strict";
+import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  const contact = sequelize.define(
-    "contact",
+  class contact extends Model {
+    /**
+     * Helper Method for defining associations.
+     * The `models/index` file will call this method automatically.
+     */
+
+    static associate(models) {
+      //contact belongs to a case
+      contact.belongsto(models.case1, {
+        foreignKey: "id",
+        as: "case_id",
+      });
+    }
+  }
+  contact.init(
     {
       fname: DataTypes.STRING,
       lname: DataTypes.STRING,
@@ -11,11 +23,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       fax: DataTypes.STRING,
     },
-    {}
+    {
+      sequelize,
+      tableName: "contact",
+      modelName: "contact",
+    }
   );
-  contact.associate = function (models) {
-    //contact belongs to a case
-    contact.belongsto(models.case1);
-  };
   return contact;
 };

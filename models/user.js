@@ -1,17 +1,29 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-"use strict";
+import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  const user = sequelize.define(
-    "user",
+  class User extends Model {
+    /**
+     * Helper Method for defining associations.
+     * The `models/index` file will call this method automatically.
+     */
+
+    static associate(models) {
+      User.belongsto(models.case1, {
+        foreignKey: "id",
+        as: "case_id",
+      });
+    }
+  }
+  User.init(
     {
       name: DataTypes.STRING,
       password: DataTypes.STRING,
     },
-    {}
+    {
+      sequelize,
+      tableName: "user",
+      modelName: "user",
+    }
   );
-  user.associate = function (models) {
-    //User belongs to a case
-    user.belongsto(models.case1);
-  };
-  return user;
+
+  return User;
 };

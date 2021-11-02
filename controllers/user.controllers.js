@@ -1,10 +1,11 @@
 /* eslint-disable no-empty */
-import { user } from "../models";
+import user from "../models/user.js";
+import bcrypt from "bcrypt";
 
-const index = async (req, res, next) => {
+const index = async function (req, res, _next) {
   try {
     const users = await user.findAll({
-      tablename: "session",
+      tablename: "user",
     });
     return res.status(200).json(users);
   } catch (err) {
@@ -13,44 +14,125 @@ const index = async (req, res, next) => {
   }
 };
 
-
-const changepw = async (req, res, next) => {
-    try{
-
-    }catch{
-
+const changepw = async (req, res, _next) => {
+  try {
+    const { password, newpassword } = await req.body;
+    const usr = await user.findByPk(req.body.id);
+    if (!usr) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
     }
-  },
 
-const show = async(req, res, next) => {
-    try{
+    return await bcrypt.compare(password, user.password, (error, response) => {
+      if (error) {
+        return res.status(400).json({
+          message: error,
+          success: false,
+        });
+      }
 
-    }catch{
-
-    }
+      if (response) {
+        const hashPassword = bcrypt.hashSync(
+          newpassword,
+          bcrypt.genSaltSync(16),
+          null
+        );
+        usr.update({
+          password: hashPassword,
+        });
+        return res.status(200).json(usr);
+      }
+      return res.status(400).json({
+        message: "password not matched",
+        success: false,
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json(err);
+  }
 };
-const store = async(req, res, next) => {
-    try{
 
-    }catch{
+const show = async (req, res, _next) => {
+  try {
+    const usr = await user.findByPk(req.params.id);
 
+    if (!usr) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
     }
+    return res.status(200).json(usr);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json(err);
+  }
+};
+const store = async (req, res, _next) => {
+  try {
+    const { name, email } = await req.body;
+    const usr = await user.create({
+      name,
+      email,
+      password: bcrypt.hashSync(
+        req.body.password,
+        bcrypt.genSaltSync(16),
+        null
+      ),
+      id: req.body.id,
+    });
+    return res.status(400).json(usr);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
-const update = async(req, res, next) => {
-    try{
+const update = async (req, res, _next) => {
+  try {
+    const { name, email, id: Uid } = await req.body;
+    const usr = await user.findByPk(req.body.id);
 
-    }catch{
-
+    if (!usr) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
     }
+
+    await usr.create({
+      name: name || user.name,
+      email: email || user.email,
+      id: Uid || user.id,
+    });
+
+    return res.status(200).json(usr);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
-const dlt = async(req, res, next) => {
-    try{
-
-    }catch{
-
+const dlt = async (req, res, _next) => {
+  try {
+    const usr = await user.findByPk(req.body.id);
+    if (!usr) {
+      return res.status(404).json({
+        message: "user not found",
+      });
     }
+    await user.dlt();
+    return res.status(400).json({
+      message: "User Dleted Sucessfully",
+    });
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
-  
+module.exports = {
+  index,
+  show,
+  dlt,
+  update,
+  store,
+  changepw,
+};

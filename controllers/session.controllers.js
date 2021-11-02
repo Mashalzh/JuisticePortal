@@ -1,5 +1,4 @@
-/* eslint-disable no-empty */
-import { session } from "../models";
+import session from "../models/session.js";
 
 const index = async (req, res, next) => {
   try {
@@ -12,22 +11,77 @@ const index = async (req, res, next) => {
     return res.status(400).json(err);
   }
 };
-
-const show = async (req, res, next) => {
+const show = async (req, res, _next) => {
   try {
-  } catch {}
+    const sessions = await session.findByPk(req.body.id);
+    if (!sessions) {
+      return res.status(404).json({
+        message: "Session Not Found",
+      });
+    }
+    return res.status(200).json(sessions);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
-const store = async (req, res, next) => {
+
+const store = async (req, res, _next) => {
   try {
-  } catch {}
+    const { date, decision, outcomes, court } = req.body;
+
+    const sessions = await session.create({
+      date,
+      decision,
+      outcomes,
+      court,
+    });
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
-const update = async (req, res, next) => {
+const update = async (req, res, _next) => {
   try {
-  } catch {}
+    const { id, date, decision, outcomes, court } = req.body;
+
+    const sessions = await session.findByPk(id);
+    if (!sessions) {
+      return res.status(404).json({
+        message: "Session Not Found",
+      });
+    }
+    await session.update({
+      date: date || sessions.date,
+      decision: decision || sessions.decision,
+      outcomes: outcomes || sessions.outcomes,
+      court: court || sessions.court,
+    });
+    return res.status(200).json(sessions);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
-const dlt = async (req, res, next) => {
+const dlt = async (req, res, _next) => {
   try {
-  } catch {}
+    const sessions = await session.findByPk(req.body.id);
+    if (!sessions) {
+      return res.status(404).json({
+        message: "Session not found",
+      });
+    }
+    await sessions.dlt();
+    return res.status(200).json({
+      message: "Session deletedd successfully",
+    });
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
+module.exports = {
+  index,
+  show,
+  update,
+  store,
+  dlt,
 };

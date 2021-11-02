@@ -1,16 +1,16 @@
 /* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import UserRoute from "./user.route.js";
-import appointmentroute from "./appointments.routes";
-import caseroute from "./case.route";
-import clientroute from "./client.route";
-import contactroute from "./contact.route";
-import courtroute from "./court.route";
-import documentroute from "./document.route";
-import opposantroute from "./opposant.route";
-import procedureroute from "./procedure.route";
-import sessionroute from "./session.route";
-
-const router = express.Router();
+import appointmentroute from "./appointments.routes.js";
+import caseroute from "./case.route.js";
+import clientroute from "./client.route.js";
+import contactroute from "./contact.route.js";
+import courtroute from "./court.route.js";
+import documentroute from "./document.route.js";
+import opposantroute from "./opposant.route.js";
+import procedureroute from "./procedure.route.js";
+import sessionroute from "./session.route.js";
+const router = require("express").Router();
 
 const defaultRoutes = [
   {
@@ -64,4 +64,4 @@ router.get("/", (req, res) => {
   res.end(`<h1 style="text-align:center">WELCOME TO LEGAL PORTAL Mode</h1>`);
 });
 
-export default router;
+module.exports = router;

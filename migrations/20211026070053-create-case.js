@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 "use strict";
 export function up(queryInterface, Sequelize) {
-  return queryInterface.createTable("cases", {
+  return queryInterface.createTable("case1", {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -45,6 +45,14 @@ export function up(queryInterface, Sequelize) {
         key: "id",
       },
     },
+    user_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      References: {
+        modelName: "user",
+        key: "id",
+      },
+    },
     sessions: {
       type: Sequelize.STRING,
     },
@@ -59,5 +67,5 @@ export function up(queryInterface, Sequelize) {
   });
 }
 export function down(queryInterface, Sequelize) {
-  return queryInterface.dropTable("cases");
+  return queryInterface.dropTable("case1");
 }

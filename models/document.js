@@ -1,17 +1,29 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-"use strict";
+import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  const document = sequelize.define(
-    "document",
+  class document extends Model {
+    /**
+     * Helper Method for defining associations.
+     * The `models/index` file will call this method automatically.
+     */
+
+    static associate(models) {
+      //Document belongs to a case
+      document.belongsto(models.case1, {
+        foreignKey: "id",
+        as: "case_id",
+      });
+    }
+  }
+  document.init(
     {
       name: DataTypes.STRING,
       size: DataTypes.STRING,
     },
-    {}
+    {
+      sequelize,
+      tableName: "document",
+      modelName: "document",
+    }
   );
-  document.associate = function (models) {
-    //Document belongs to a case
-    document.belongsto(models.case1);
-  };
   return document;
 };

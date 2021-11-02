@@ -1,5 +1,4 @@
-/* eslint-disable no-empty */
-import { procedure } from "../models";
+import procedure from "../models/procedure.js";
 
 const index = async (req, res, next) => {
   try {
@@ -12,22 +11,76 @@ const index = async (req, res, next) => {
     return res.status(400).json(err);
   }
 };
+const show = async (req, res, _next) => {
+  try {
+    const procedures = await procedure.findByPk(req.params.id);
 
-const show = async (req, res, next) => {
-  try {
-  } catch {}
+    if (!procedures) {
+      return res.status(404).json({
+        message: "Procedure Not Found",
+      });
+    }
+    return res.status(200).json(procedures);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json(err);
+  }
 };
-const store = async (req, res, next) => {
+const store = async (req, res, _next) => {
   try {
-  } catch {}
+    const { desc, date } = await req.body;
+    const procedures = await procedure.create({
+      desc,
+      date,
+    });
+
+    return res.status(400).json(procedures);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
 };
 
 const update = async (req, res, next) => {
   try {
-  } catch {}
-};
+    const { desc, date } = await req.body;
+    const procedures = await procedure.findByPk(req.body.id);
 
+    if (!procedures) {
+      return res.status(404).json({
+        message: "Procedure Not Found",
+      });
+    }
+
+    await procedure.create({
+      desc: desc || procedures.desc,
+      date: date || procedures.date,
+    });
+
+    return res.status(200).json(procedures);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
 const dlt = async (req, res, next) => {
   try {
-  } catch {}
+    const procedures = await procedure.findByPk(req.body.id);
+    if (!procedures) {
+      return res.status(404).json({
+        message: "Procedure not found",
+      });
+    }
+    await procedure.dlt();
+    return res.status(400).json({
+      message: "Procedure Dleted Sucessfully",
+    });
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
+module.exports = {
+  index,
+  show,
+  dlt,
+  update,
+  store,
 };

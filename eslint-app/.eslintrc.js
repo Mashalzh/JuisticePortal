@@ -1,15 +1,14 @@
 module.exports = {
   env: {
     browser: true,
-    commonjs: true,
     es2021: true,
   },
   extends: ["airbnb-base", "prettier"],
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 13,
     sourceType: "module",
   },
-  Plugin: ["prettier"],
+  plugins: ["prettier"],
   rules: {
     "prettier/prettier": "error",
   },

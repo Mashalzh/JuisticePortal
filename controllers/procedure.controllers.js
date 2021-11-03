@@ -51,7 +51,7 @@ const update = async (req, res, next) => {
       });
     }
 
-    await procedure.create({
+    await procedures.update({
       desc: desc || procedures.desc,
       date: date || procedures.date,
     });
@@ -69,7 +69,7 @@ const dlt = async (req, res, next) => {
         message: "Procedure not found",
       });
     }
-    await procedure.dlt();
+    await procedures.dlt();
     return res.status(400).json({
       message: "Procedure Dleted Sucessfully",
     });

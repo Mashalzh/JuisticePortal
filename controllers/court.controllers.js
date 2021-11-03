@@ -54,7 +54,7 @@ const update = async (req, res, _next) => {
         message: "Court Not Found",
       });
     }
-    await court.update({
+    await cort.update({
       name: name || cort.name,
       type: type || cort.type,
       roomnum: roomnum || cort.roomnum,

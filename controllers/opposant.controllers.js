@@ -54,7 +54,7 @@ const update = async (req, res, next) => {
       });
     }
 
-    await opposant.create({
+    await oppo.update({
       fname: fname || oppo.fname,
       lname: lname || oppo.lname,
       address: address || oppo.address,

@@ -67,7 +67,7 @@ const update = async (req, res, _next) => {
         message: "Appointment Not Found",
       });
     }
-    await appointments.update({
+    await appointment.update({
       subject: sub || appointment.sub,
       startdate: sd || appointment.sd,
       enddate: ed || appointment.ed,

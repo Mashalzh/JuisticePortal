@@ -99,7 +99,7 @@ const update = async (req, res, _next) => {
       });
     }
 
-    await usr.create({
+    await usr.update({
       name: name || user.name,
       email: email || user.email,
       id: Uid || user.id,
@@ -119,7 +119,7 @@ const dlt = async (req, res, _next) => {
         message: "user not found",
       });
     }
-    await user.dlt();
+    await usr.dlt();
     return res.status(400).json({
       message: "User Dleted Sucessfully",
     });

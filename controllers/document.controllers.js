@@ -52,7 +52,7 @@ const update = async (req, res, _next) => {
         message: "Document Not Found",
       });
     }
-    await document.update({
+    await doc.update({
       name: name || doc.name,
       size: size || doc.size,
     });

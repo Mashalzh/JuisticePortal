@@ -50,7 +50,7 @@ const update = async (req, res, _next) => {
         message: "Session Not Found",
       });
     }
-    await session.update({
+    await sessions.update({
       date: date || sessions.date,
       decision: decision || sessions.decision,
       outcomes: outcomes || sessions.outcomes,

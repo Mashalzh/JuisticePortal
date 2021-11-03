@@ -56,7 +56,7 @@ const update = async (req, res, _next) => {
         message: "contact Not Found",
       });
     }
-    await contact.update({
+    await contac.update({
       fname: fn || contac.fname,
       lname: ln || contac.lname,
       fixnum: fixnum || contac.fixnum,

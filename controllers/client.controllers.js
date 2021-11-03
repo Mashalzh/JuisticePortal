@@ -74,7 +74,7 @@ const dlt = async (req, res, next) => {
         message: "client not found",
       });
     }
-    await client.dlt();
+    await clint.dlt();
     return res.status(400).json({
       message: "client Dleted Sucessfully",
     });

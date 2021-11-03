@@ -77,7 +77,7 @@ const update = async (req, res, _next) => {
         message: "Case Not Found",
       });
     }
-    await case1.update({
+    await cases.update({
       status: st || cases.status,
       charges: ch || cases.charges,
       startdate: sd || cases.startdate,

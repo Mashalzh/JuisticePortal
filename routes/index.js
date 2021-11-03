@@ -9,6 +9,7 @@ import courtroute from "./court.route.js";
 import documentroute from "./document.route.js";
 import opposantroute from "./opposant.route.js";
 import procedureroute from "./procedure.route.js";
+import sceduleroute from "../jobscheduler/cornjob.js";
 import sessionroute from "./session.route.js";
 const router = require("express").Router();
 
@@ -52,6 +53,10 @@ const defaultRoutes = [
   {
     path: "/api/session",
     route: sessionroute,
+  },
+  {
+    path: "/api/job",
+    route: sceduleroute,
   },
 ];
 

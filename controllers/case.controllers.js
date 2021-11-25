@@ -1,4 +1,4 @@
-import case1 from "../models/case.js";
+const case1 = require("../models/case");
 
 const index = async (req, res, _next) => {
   try {

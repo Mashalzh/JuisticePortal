@@ -1,13 +1,14 @@
-import { Router } from "express";
+const { Router } = require("express");
+//import { route } from "./appointments.routes.js";
 const router = Router();
 
-import {
+const {
   index,
   show,
   store,
   update,
   dlt,
-} from "../controllers/session.controllers.js";
+} = require("../controllers/session.controllers");
 
 //Routes
 
@@ -18,7 +19,7 @@ router.post("/create", store);
 router.put("/:id/update", update);
 router.delete("/:id/delete", dlt);
 
-export default router;
+module.exports = router;
 
 /**
  * @swagger

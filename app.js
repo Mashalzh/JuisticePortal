@@ -1,13 +1,13 @@
-/* eslint-disable no-undef */
-import express, { json, urlencoded } from "express";
-import indexRouter from "./routes/index.js";
+const express = require("express");
+const indexRouter = require("./routes/index");
 
 const app = express();
+require("dotenv").config();
 
-const port = process.env.port || 5000;
-
-app.use(json());
-app.use(urlencoded({ extended: true }));
+const port = process.env.PORT;
+// app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 
@@ -16,7 +16,6 @@ app.use((req, res) => {
   res.status(404).send({ error: "Not found" });
 });
 
-// error handler
 app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -27,4 +26,4 @@ app.use((err, req, res) => {
 app.listen(port, () => {
   console.log("SERVER RUNNING ON PORT ${port}");
 });
-export default app;
+module.exports = app;

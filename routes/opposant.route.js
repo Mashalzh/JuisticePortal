@@ -1,13 +1,13 @@
-import { Router } from "express";
+const { Router } = require("express");
 const router = Router();
 
-import {
+const {
   index,
   show,
   store,
   update,
   dlt,
-} from "../controllers/opposant.controllers.js";
+} = require("../controllers/opposant.controllers");
 
 //Routes
 
@@ -18,8 +18,7 @@ router.post("/create", store);
 router.put("/:id/update", update);
 router.delete("/:id/delete", dlt);
 
-export default router;
-
+module.exports = router;
 /**
  * @swagger
  * /api/opposant:

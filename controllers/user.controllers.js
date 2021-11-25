@@ -1,6 +1,14 @@
-/* eslint-disable no-empty */
-import user from "../models/user.js";
-import bcrypt from "bcrypt";
+const user = require("../models/user");
+const bcrypt = require("bcrypt");
+const express = require("express");
+const bodyParser = require("body-parser");
+const { body, validationResult } = require("express-validator");
+const pkg = require("typescript");
+const { validateLocaleAndSetLanguage } = pkg;
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const index = async function (req, res, _next) {
   try {
@@ -8,6 +16,37 @@ const index = async function (req, res, _next) {
       tablename: "user",
     });
     return res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json(err);
+  }
+};
+
+const login = async function (req, res, _next) {
+  const errors = validationResult(req);
+  try {
+    body("email").isEmail().normalizeEmail(),
+      body("password")
+        .isLength({
+          min: 8,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+        })
+        .withMessage(
+          "Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, and one number"
+        );
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        errors: errors.array(),
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Login successful",
+    });
   } catch (err) {
     console.log(err);
     return res.status(400).json(err);
@@ -135,4 +174,5 @@ module.exports = {
   update,
   store,
   changepw,
+  login,
 };

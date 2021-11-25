@@ -1,18 +1,20 @@
-import { Router } from "express";
-const router = Router();
+const express = require("express");
+const router = express.Router();
 
-import {
+const {
   index,
+  login,
   show,
   store,
   update,
   dlt,
   changepw,
-} from "../controllers/user.controllers.js";
+} = require("../controllers/user.controllers");
 
 //Routes
 
 router.get("/", index);
+router.post("/login", login);
 router.get("/:id/show", show);
 router.get("/:id/show", show);
 router.post("/create", store);
@@ -20,7 +22,7 @@ router.put("/:id/update", update);
 router.delete("/:id/delete", dlt);
 router.put("/:id/changepassword", changepw);
 
-export default router;
+module.exports = router;
 
 // /**
 //  * @swagger

@@ -1,4 +1,4 @@
-import opposant from "../models/opposant.js";
+const opposant = require("../models/opposant");
 
 const index = async (req, res, next) => {
   try {
@@ -83,6 +83,7 @@ const dlt = async (req, res, next) => {
     return res.status(400).json(err);
   }
 };
+
 module.exports = {
   index,
   show,

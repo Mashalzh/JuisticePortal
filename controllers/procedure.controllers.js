@@ -1,4 +1,4 @@
-import procedure from "../models/procedure.js";
+const procedure = require("../models/procedure");
 
 const index = async (req, res, next) => {
   try {
@@ -77,6 +77,7 @@ const dlt = async (req, res, next) => {
     return res.status(400).json(err);
   }
 };
+
 module.exports = {
   index,
   show,

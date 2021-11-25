@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { schedule as _schedule } from "node-cron";
+import pkg from "node-cron";
+const { schedule: _schedule } = pkg;
 const router = Router();
 
 router.post("/schedule", (_, res) => {

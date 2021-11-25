@@ -1,4 +1,4 @@
-import contact from "../models";
+const contact = require("../models/contact");
 
 const index = async (req, res, _next) => {
   try {
@@ -89,6 +89,7 @@ const dlt = async (req, res, _next) => {
     return res.status(400).json(err);
   }
 };
+
 module.exports = {
   index,
   show,

@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable no-undef */
-"use strict";
-
 import { readdirSync } from "fs";
+import path from "path";
 import { basename as _basename, join } from "path";
-import Sequelize from "sequelize";
-// eslint-disable-next-line no-undef
-const basename = _basename(__filename);
+import pkg from "sequelize";
+const { DataTypes } = pkg;
+
+const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env];
+const config = require("../config/config.json")[env];
+
 const db = {};
 
 let sequelize;
@@ -23,7 +22,6 @@ if (config.use_env_variable) {
   );
 }
 
-// eslint-disable-next-line no-undef
 readdirSync(__dirname)
   .filter((file) => {
     return (
@@ -31,7 +29,7 @@ readdirSync(__dirname)
     );
   })
   .forEach((file) => {
-    const model = sequelize["import"](join(__dirname, file));
+    const model = require(join(__dirname, file))(sequelize, DataTypes);
     db[model.name] = model;
   });
 

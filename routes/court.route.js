@@ -1,13 +1,14 @@
-import { Router } from "express";
+const { Router } = require("express");
+//import { ModuleKind } from "typescript";
 const router = Router();
 
-import {
+const {
   index,
   show,
   store,
   update,
   dlt,
-} from "../controllers/court.controllers.js";
+} = require("../controllers/court.controllers");
 
 //Routes
 
@@ -17,8 +18,7 @@ router.get("/:id/show", show);
 router.post("/create", store);
 router.put("/:id/update", update);
 router.delete("/:id/delete", dlt);
-
-export default router;
+module.exports = router;
 
 /**
  * @swagger

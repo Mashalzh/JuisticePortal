@@ -1,4 +1,4 @@
-import court from "../models/court.js";
+const court = require("../models/court");
 
 const index = async (req, res, _next) => {
   try {
@@ -84,6 +84,7 @@ const dlt = async (req, res, next) => {
     return res.status(400).json(err);
   }
 };
+
 module.exports = {
   index,
   show,

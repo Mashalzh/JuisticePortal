@@ -1,5 +1,7 @@
-import { Model } from "sequelize";
-export default (sequelize, DataTypes) => {
+const pkg = require("sequelize");
+const { Model } = pkg;
+
+module.exports = (sequelize, DataTypes) => {
   class court extends Model {
     /**
      * Helper Method for defining associations.

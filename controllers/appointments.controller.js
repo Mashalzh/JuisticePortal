@@ -1,4 +1,4 @@
-import appointments from "../models/appointments.js";
+const { appointments } = require("../models/appointments");
 
 const index = async (req, res, _next) => {
   try {
@@ -97,9 +97,9 @@ const dlt = async (req, res, _next) => {
   }
 };
 module.exports = {
-  index,
-  show,
+  dlt,
   update,
   store,
-  dlt,
+  show,
+  index,
 };

@@ -1,4 +1,4 @@
-import client from "../models/client.js";
+const client = require("../models/client");
 const index = async (req, res, next) => {
   try {
     const clients = await client.findAll({
@@ -82,6 +82,7 @@ const dlt = async (req, res, next) => {
     return res.status(400).json(err);
   }
 };
+
 module.exports = {
   index,
   show,

@@ -1,4 +1,4 @@
-import session from "../models/session.js";
+const session = require("../models/session");
 
 const index = async (req, res, next) => {
   try {
@@ -78,6 +78,7 @@ const dlt = async (req, res, _next) => {
     return res.status(400).json(err);
   }
 };
+
 module.exports = {
   index,
   show,

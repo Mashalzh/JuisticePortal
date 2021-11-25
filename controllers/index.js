@@ -1,15 +1,13 @@
-import usercontrollers from "./user.controllers.js";
-import appointmentscontroller from "./appointments.controller.js";
-import casecontrollers from "./case.controllers.js";
-import clientcontrollers from "./client.controllers.js";
-import contactcontrollers from "./contact.controllers.js";
-import Lacourtcontrollersws from "./court.controllers.js";
-import documentcontrollers from "./document.controllers.js";
-import opposantcontrollers from "./opposant.controllers.js";
-import procedurecontrollers from "./procedure.controllers.js";
-import sessioncontrollers from "./session.controllers.js";
-
-// eslint-disable-next-line no-undef
+const usercontrollers = require("./user.controllers");
+const appointmentscontroller = require("./appointments.controller");
+const casecontrollers = require("./case.controllers");
+const clientcontrollers = require("./client.controllers");
+const contactcontrollers = require("./contact.controllers");
+const Lacourtcontrollersws = require("./court.controllers");
+const documentcontrollers = require("./document.controllers");
+const opposantcontrollers = require("./opposant.controllers");
+const procedurecontrollers = require("./procedure.controllers");
+const sessioncontrollers = require("./session.controllers");
 module.exports = {
   appointmentscontroller,
   casecontrollers,
